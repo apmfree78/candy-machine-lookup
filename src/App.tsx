@@ -1,9 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
+import 'bulmaswatch/slate/bulmaswatch.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import './App.css';
+import MintInfo from './components/MintInfo';
 
 function App() {
-  return <div className='App'></div>;
+  return <div className='App'>
+    <MintInfo />
+  </div>;
 }
 
 export default App;
