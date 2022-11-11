@@ -1,4 +1,4 @@
-const NTFCard: React.FC<{ name: string; url: string }> = ({ name, url }) => {
+const NFTCard: React.FC<{ name: string; url: string }> = ({ name, url }) => {
   return (
     <div className="card">
       <div className="card-image">
@@ -10,3 +10,5 @@ const NTFCard: React.FC<{ name: string; url: string }> = ({ name, url }) => {
     </div>
   );
 };
+
+export default NFTCard;

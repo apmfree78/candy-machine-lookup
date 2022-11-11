@@ -38,7 +38,7 @@ const useUser = (page: number, numberOfUsers: number) => {
             name: `${user.name.first} ${user.name.last}`,
             age: user.dob.age,
             gender: user.gender,
-            picture: user.picture.medium,
+            picture: user.picture.large,
           };
         });
         console.log(userData);

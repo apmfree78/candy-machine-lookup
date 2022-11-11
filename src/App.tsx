@@ -4,6 +4,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./App.css";
 import MintInfo from "./components/MintInfo";
 import useUser, { User } from "./hooks/useUser";
+import DisplayNFTs from "./components/DisplayNFTs";
 
 function App() {
   const [page, setPage] = useState(1);
@@ -11,6 +12,10 @@ function App() {
   return (
     <div role="container" className="App">
       <MintInfo />
+      <h3 className="title is-3" style={{ textAlign: "center" }}>
+        List of NTFs
+      </h3>
+      <DisplayNFTs users={users} />
     </div>
   );
 }
