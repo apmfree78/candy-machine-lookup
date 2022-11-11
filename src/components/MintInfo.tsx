@@ -38,7 +38,7 @@ const MintInfo: React.FC = () => {
         </table>
       </div>
       <div className="column is-one-third" style={{ textAlign: "left" }}>
-        <p style={{ fontWeight: "bold" }}>Creator</p>
+        <p style={{ fontWeight: "bold" }}>Creators</p>
 
         <table className="table">
           <tbody>
