@@ -2,20 +2,20 @@
 const MintInfo: React.FC = () => {
   return (
     <section aria-label="candy-machine-data" className="columns">
-      <div className="column" style={{ textAlign: "left" }}>
-        <p>
+      <div className="column is-one-third" style={{ textAlign: "left" }}>
+        <div>
           <p style={{ fontWeight: "bold" }}>Mint Price</p>
           <p>3 SOL</p>
-        </p>
+        </div>
         <br />
-        <p>
+        <div>
           <p style={{ fontWeight: "bold" }}>Live Date</p>
           <p>Febrary 2, 2022</p>
           <p>6 hours ago</p>
-        </p>
+        </div>
       </div>
-      <div className="column" style={{ textAlign: "left" }}>
-        <h5 className="title is-5">Mint Stats</h5>
+      <div className="column is-one-third" style={{ textAlign: "left" }}>
+        <p style={{ fontWeight: "bold" }}>Mint Stats</p>
         <table className="table">
           <tbody>
             <tr>
@@ -37,8 +37,8 @@ const MintInfo: React.FC = () => {
           </tbody>
         </table>
       </div>
-      <div className="column" style={{ textAlign: "left" }}>
-        <h5 className="title is-5">Creators</h5>
+      <div className="column is-one-third" style={{ textAlign: "left" }}>
+        <p style={{ fontWeight: "bold" }}>Creator</p>
 
         <table className="table">
           <tbody>
