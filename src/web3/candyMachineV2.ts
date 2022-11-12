@@ -39,7 +39,7 @@ const TOKEN_METADATA_PROGRAM = new PublicKey(
 const CANDY_MACHINE_V2_PROGRAM = new PublicKey(
   "cndy3Z4yapfJBmL3ShUp5exZKqR3z33thTzeNMm2gRZ"
 );
-const candyMachineId = new PublicKey("ENTER_YOUR_CANDY_MACHINE_ID_HERE");
+// const candyMachineId = new PublicKey('ENTER_YOUR_CANDY_MACHINE_ID_HERE');
 
 export const getMintAddresses = async (firstCreatorAddress: PublicKey) => {
   const metadataAccounts = await connection.getProgramAccounts(
@@ -76,7 +76,7 @@ export const getCandyMachineCreator = async (
     CANDY_MACHINE_V2_PROGRAM
   );
 
-(async () => {
-  const candyMachineCreator = await getCandyMachineCreator(candyMachineId);
-  getMintAddresses(candyMachineCreator[0]);
-})();
+// (async () => {
+//   const candyMachineCreator = await getCandyMachineCreator(candyMachineId);
+//   getMintAddresses(candyMachineCreator[0]);
+// })();
