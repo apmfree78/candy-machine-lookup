@@ -7,14 +7,17 @@ import useUser, { User } from "./hooks/useUser";
 import DisplayNFTs from "./components/DisplayNFTs";
 import SearchBar from "./components/SearchBar";
 
+interface MintAddressType {
+  addresses: string[];
+}
 function App() {
   const [page, setPage] = useState(1);
-  const [candyAddress, setCandyAddress] = useState("");
+  const [mintAddresses, setMintAddresses] = useState([""]);
   const users: User[] = useUser(page, 9);
 
   return (
     <div role="container" className="App">
-      <SearchBar setCandyAddress={setCandyAddress} />
+      <SearchBar setMintAddresses={setMintAddresses} />
       <MintInfo />
       <h3 className="title is-3" style={{ textAlign: "center" }}>
         List of NFTs

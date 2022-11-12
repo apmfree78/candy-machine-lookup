@@ -8,5 +8,7 @@ const metaplex = new Metaplex(connection);
 export const getCandyMachine = async (publicKey: string) => {
   const candyMachine = await metaplex
     .candyMachines()
-    .findByAddress({ address: new PublicKey(publicKey) });
+    .findByAddress({ address: new PublicKey(publicKey) })
+    .catch((err) => console.error(err));
+  return candyMachine;
 };

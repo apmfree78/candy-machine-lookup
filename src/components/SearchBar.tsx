@@ -1,12 +1,16 @@
+import { PublicKey } from "@metaplex-foundation/js";
+import {
+  getMintAddresses,
+  getCandyMachineCreator,
+} from "../web3/candyMachineV2";
 import { useState } from "react";
-import { getCandyMachine } from "../web3/getCandyMachine";
 
 interface SearchBarProps {
-  setCandyAddress: (address: string) => void;
+  setMintAddresses: (addresses: string[]) => void;
 }
 
 // search bar for user to input Candy Machine they would like to search for
-const SearchBar: React.FC<SearchBarProps> = ({ setCandyAddress }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ setMintAddresses }) => {
   const [address, setAddress] = useState("");
 
   // update current input to state
@@ -15,15 +19,24 @@ const SearchBar: React.FC<SearchBarProps> = ({ setCandyAddress }) => {
     setAddress(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     //first validate address is a valid solana address
     const validator = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
     const isValid = validator.test(address);
 
     // if valid set address
     if (isValid) {
-      setCandyAddress(address);
-      // getCandyMachine(address);
+      // transfor address to PublicKey object
+      const candyMachineId = new PublicKey(address);
+
+      // extract list of candoMachine Creators using candyMachineId
+      const candyMachineCreator = await getCandyMachineCreator(candyMachineId);
+
+      // finally, get mint addresses using first creator
+      const mintAddresses = await getMintAddresses(candyMachineCreator[0]);
+
+      //setting state
+      setMintAddresses([...mintAddresses]);
     } else alert("Invalid address submitted, please try again!");
   };
 
