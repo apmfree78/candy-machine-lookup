@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getCandyMachine } from "../web3/getCandyMachine";
 
 interface SearchBarProps {
   setCandyAddress: (address: string) => void;
@@ -20,8 +21,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ setCandyAddress }) => {
     const isValid = validator.test(address);
 
     // if valid set address
-    if (isValid) setCandyAddress(address);
-    else alert("Invalid address submitted, please try again!");
+    if (isValid) {
+      setCandyAddress(address);
+      // getCandyMachine(address);
+    } else alert("Invalid address submitted, please try again!");
   };
 
   return (
