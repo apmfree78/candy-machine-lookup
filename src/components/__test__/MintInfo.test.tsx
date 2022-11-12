@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import MintInfo from "./MintInfo";
+import MintInfo from "../MintInfo";
 
 jest.mock("axios", () => () => null);
 test("Mint Price Column Appears", () => {

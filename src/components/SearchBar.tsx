@@ -25,7 +25,14 @@ const SearchBar: React.FC<SearchBarProps> = ({ setCandyAddress }) => {
   };
 
   return (
-    <div className="field has-addons">
+    <div
+      className="field has-addons"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        paddingBottom: "3vh",
+      }}
+    >
       <div className="control">
         <input
           className="input is-large"
@@ -37,7 +44,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ setCandyAddress }) => {
       </div>
       <div className="control">
         <button
-          className="button is-info"
+          className="button is-info is-large"
           disabled={address === ""}
           onClick={handleSubmit}
         >

@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import NftCard from "./NftCard";
+import NftCard from "../NftCard";
 import { faker } from "@faker-js/faker";
 
 const user = {
