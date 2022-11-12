@@ -1,31 +1,32 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import DisplayNFTs from "./DisplayNFTs";
+import { faker } from "@faker-js/faker";
 
 const users = [
   {
     age: 36,
-    gender: "male",
-    name: "Adam Dumont",
-    picture: "https://randomuser.me/api/portraits/men/79.jpg",
+    gender: faker.name.sex(),
+    name: faker.name.fullName(),
+    picture: faker.image.abstract(),
   },
   {
     age: 36,
-    gender: "male",
-    name: "Adam Dumont",
-    picture: "https://randomuser.me/api/portraits/men/79.jpg",
+    gender: faker.name.sex(),
+    name: faker.name.fullName(),
+    picture: faker.image.abstract(),
   },
   {
     age: 36,
-    gender: "male",
-    name: "Adam Dumont",
-    picture: "https://randomuser.me/api/portraits/men/79.jpg",
+    gender: faker.name.sex(),
+    name: faker.name.fullName(),
+    picture: faker.image.abstract(),
   },
   {
     age: 36,
-    gender: "male",
-    name: "Adam Dumont",
-    picture: "https://randomuser.me/api/portraits/men/79.jpg",
+    gender: faker.name.sex(),
+    name: faker.name.fullName(),
+    picture: faker.image.abstract(),
   },
 ];
 jest.mock("axios", () => () => null);

@@ -5,7 +5,7 @@ import NFTCard from "./NftCard";
 // up to 3 in each row
 const DisplayNFTs: React.FC<{ users: User[] }> = ({ users }) => {
   return (
-    <section role="list" className="columns  is-multiline">
+    <section role="list" className="columns is-multiline">
       {users.map((user, key) => {
         return (
           <div role="listitem" key={key} className="column is-one-third">

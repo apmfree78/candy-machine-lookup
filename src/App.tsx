@@ -8,7 +8,9 @@ import DisplayNFTs from "./components/DisplayNFTs";
 
 function App() {
   const [page, setPage] = useState(1);
+  const [candyAddress, getCandyAddress] = useState("");
   const users: User[] = useUser(page, 9);
+
   return (
     <div role="container" className="App">
       <MintInfo />
