@@ -1,7 +1,8 @@
 import { Connection, clusterApiUrl, PublicKey } from "@solana/web3.js";
+import { Metaplex } from "@metaplex-foundation/js";
 import bs58 from "bs58";
 
-const connection = new Connection(clusterApiUrl("mainnet-beta"));
+// const connection = new Connection(clusterApiUrl('mainnet-beta'));
 const MAX_NAME_LENGTH = 32;
 const MAX_URI_LENGTH = 200;
 const MAX_SYMBOL_LENGTH = 10;
@@ -41,7 +42,10 @@ const CANDY_MACHINE_V2_PROGRAM = new PublicKey(
 );
 // const candyMachineId = new PublicKey('ENTER_YOUR_CANDY_MACHINE_ID_HERE');
 
-export const getMintAddresses = async (firstCreatorAddress: PublicKey) => {
+export const getMintAddresses = async (
+  firstCreatorAddress: PublicKey,
+  connection: Connection
+) => {
   const metadataAccounts = await connection.getProgramAccounts(
     TOKEN_METADATA_PROGRAM,
     {
@@ -75,6 +79,14 @@ export const getCandyMachineCreator = async (
     [Buffer.from("candy_machine"), candyMachine.toBuffer()],
     CANDY_MACHINE_V2_PROGRAM
   );
+
+export const fetchNft = async (connection: Connection, address: string) => {
+  const mx = Metaplex.make(connection);
+  const asset = await mx
+    .nfts()
+    .findByMint({ mintAddress: new PublicKey(address) });
+  return asset;
+};
 
 // (async () => {
 //   const candyMachineCreator = await getCandyMachineCreator(candyMachineId);

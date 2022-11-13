@@ -1,16 +1,22 @@
 import { PublicKey } from "@metaplex-foundation/js";
+import { Connection } from "@solana/web3.js";
 import {
   getMintAddresses,
   getCandyMachineCreator,
+  fetchNft,
 } from "../web3/candyMachineV2";
 import { useState } from "react";
 
 interface SearchBarProps {
   setMintAddresses: (addresses: string[]) => void;
+  connection: Connection;
 }
 
 // search bar for user to input Candy Machine they would like to search for
-const SearchBar: React.FC<SearchBarProps> = ({ setMintAddresses }) => {
+const SearchBar: React.FC<SearchBarProps> = ({
+  setMintAddresses,
+  connection,
+}) => {
   const [address, setAddress] = useState("");
 
   // update current input to state
@@ -26,17 +32,22 @@ const SearchBar: React.FC<SearchBarProps> = ({ setMintAddresses }) => {
 
     // if valid set address
     if (isValid) {
+      const nft = await fetchNft(connection, address);
+      console.log(`${nft.name} ${nft.json?.image}`);
       // transfor address to PublicKey object
-      const candyMachineId = new PublicKey(address);
+      // const candyMachineId = new PublicKey(address);
 
-      // extract list of candoMachine Creators using candyMachineId
-      const candyMachineCreator = await getCandyMachineCreator(candyMachineId);
+      // // extract list of candoMachine Creators using candyMachineId
+      // const candyMachineCreator = await getCandyMachineCreator(candyMachineId);
 
-      // finally, get mint addresses using first creator
-      const mintAddresses = await getMintAddresses(candyMachineCreator[0]);
-
-      //setting state
-      setMintAddresses([...mintAddresses]);
+      // // finally, get mint addresses using first creator
+      // const mintAddresses = await getMintAddresses(
+      //   candyMachineCreator[0],
+      //   connection
+      // );
+      // console.log(mintAddresses);
+      // //setting state
+      // setMintAddresses([...mintAddresses]);
     } else alert("Invalid address submitted, please try again!");
   };
 
