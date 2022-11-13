@@ -30,7 +30,7 @@ const useUser = (page: number, numberOfUsers: number) => {
         const {
           data: { results },
         } = response;
-        console.table(results);
+        // console.table(results);
 
         // transform data to match User schema
         const userData: User[] = results.map((user: any) => {
@@ -41,7 +41,7 @@ const useUser = (page: number, numberOfUsers: number) => {
             picture: user.picture.large,
           };
         });
-        console.log(userData);
+        // console.log(userData);
         // setting state
         setUsers([...userData]);
       }

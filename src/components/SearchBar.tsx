@@ -1,20 +1,24 @@
-import { PublicKey } from "@metaplex-foundation/js";
+import { Metaplex, PublicKey } from "@metaplex-foundation/js";
 import { Connection } from "@solana/web3.js";
 import {
   getMintAddresses,
   getCandyMachineCreator,
+  fetchNfts,
   fetchNft,
 } from "../web3/candyMachineV2";
 import { useState } from "react";
+import { NftType } from "../App";
 
 interface SearchBarProps {
   setMintAddresses: (addresses: string[]) => void;
+  setNfts: (addresses: NftType[]) => void;
   connection: Connection;
 }
 
 // search bar for user to input Candy Machine they would like to search for
 const SearchBar: React.FC<SearchBarProps> = ({
   setMintAddresses,
+  setNfts,
   connection,
 }) => {
   const [address, setAddress] = useState("");
@@ -32,22 +36,37 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
     // if valid set address
     if (isValid) {
-      const nft = await fetchNft(connection, address);
-      console.log(`${nft.name} ${nft.json?.image}`);
+      // const nft = await fetchNft(connection, address);
+      // console.log(`${nft.name} ${nft.json?.image}`);
       // transfor address to PublicKey object
-      // const candyMachineId = new PublicKey(address);
+      const candyMachineId = new PublicKey(address);
 
-      // // extract list of candoMachine Creators using candyMachineId
-      // const candyMachineCreator = await getCandyMachineCreator(candyMachineId);
+      // extract list of candoMachine Creators using candyMachineId
+      console.log("getting creators");
+      const candyMachineCreator = await getCandyMachineCreator(candyMachineId);
 
-      // // finally, get mint addresses using first creator
-      // const mintAddresses = await getMintAddresses(
-      //   candyMachineCreator[0],
-      //   connection
-      // );
-      // console.log(mintAddresses);
-      // //setting state
-      // setMintAddresses([...mintAddresses]);
+      // finally, get mint addresses using first creator
+      console.log("getting mint addresses");
+      const mintAddresses = await getMintAddresses(
+        candyMachineCreator[0],
+        connection
+      );
+      console.log(mintAddresses);
+
+      // obtain nfts from mindAddresses
+      const nfts = await Promise.all(
+        mintAddresses.map(async (address) => {
+          const nft = await fetchNft(connection, address);
+          return { name: nft.name, url: nft.json?.image || "" };
+        })
+      );
+
+      // resolving promises
+
+      console.log(nfts);
+      //setting state
+      setNfts([...nfts]);
+      setMintAddresses([...mintAddresses]);
     } else alert("Invalid address submitted, please try again!");
   };
 

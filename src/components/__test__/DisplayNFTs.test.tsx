@@ -3,41 +3,33 @@ import { render, screen } from "@testing-library/react";
 import DisplayNFTs from "../DisplayNFTs";
 import { faker } from "@faker-js/faker";
 
-const users = [
+const nfts = [
   {
-    age: 36,
-    gender: faker.name.sex(),
     name: faker.name.fullName(),
-    picture: faker.image.abstract(),
+    url: faker.image.abstract(),
   },
   {
-    age: 36,
-    gender: faker.name.sex(),
     name: faker.name.fullName(),
-    picture: faker.image.abstract(),
+    url: faker.image.abstract(),
   },
   {
-    age: 36,
-    gender: faker.name.sex(),
     name: faker.name.fullName(),
-    picture: faker.image.abstract(),
+    url: faker.image.abstract(),
   },
   {
-    age: 36,
-    gender: faker.name.sex(),
     name: faker.name.fullName(),
-    picture: faker.image.abstract(),
+    url: faker.image.abstract(),
   },
 ];
 jest.mock("axios", () => () => null);
 test("container for list of NTFs appears", () => {
-  render(<DisplayNFTs users={users} />);
+  render(<DisplayNFTs nfts={nfts} />);
   const Element = screen.getByRole("list");
   expect(Element).toBeInTheDocument();
 });
 
 test("NTF list items appears", () => {
-  render(<DisplayNFTs users={users} />);
+  render(<DisplayNFTs nfts={nfts} />);
   const Element = screen.getAllByRole("listitem");
   expect(Element.length).toEqual(4);
 });

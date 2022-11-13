@@ -88,6 +88,18 @@ export const fetchNft = async (connection: Connection, address: string) => {
   return asset;
 };
 
+export const fetchNfts = async (
+  connection: Connection,
+  addresses: string[]
+) => {
+  const mx = Metaplex.make(connection);
+  // converting string array addresses to PublicKeys
+  const mints = addresses.map((address) => new PublicKey(address));
+  //get nft metadata
+  const asset = await mx.nfts().findAllByMintList({ mints });
+  return asset;
+};
+
 // (async () => {
 //   const candyMachineCreator = await getCandyMachineCreator(candyMachineId);
 //   getMintAddresses(candyMachineCreator[0]);

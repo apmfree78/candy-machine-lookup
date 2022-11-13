@@ -8,14 +8,16 @@ import useUser, { User } from "./hooks/useUser";
 import DisplayNFTs from "./components/DisplayNFTs";
 import SearchBar from "./components/SearchBar";
 
-interface MintAddressType {
-  addresses: string[];
+export interface NftType {
+  name: string;
+  url: string;
 }
 function App() {
   const [page, setPage] = useState(1);
 
   // mint addresses for nfts obtained from candy machine
   const [mintAddresses, setMintAddresses] = useState([""]);
+  const [nfts, setNfts] = useState<NftType[]>([{ name: "", url: "" }]);
   const connection = useRef<Connection>(
     new Connection(clusterApiUrl("devnet"))
   );
@@ -29,13 +31,18 @@ function App() {
     <div role="container" className="App">
       <SearchBar
         setMintAddresses={setMintAddresses}
+        setNfts={setNfts}
         connection={connection.current}
       />
       <MintInfo />
-      <h3 className="title is-3" style={{ textAlign: "center" }}>
-        List of NFTs
-      </h3>
-      <DisplayNFTs users={users} />
+      {nfts[0].name !== "" && (
+        <>
+          <h3 className="title is-3" style={{ textAlign: "center" }}>
+            List of NFTs
+          </h3>
+          <DisplayNFTs nfts={nfts} />
+        </>
+      )}
     </div>
   );
 }
