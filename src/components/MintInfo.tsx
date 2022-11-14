@@ -7,14 +7,14 @@ const MintInfo: React.FC<{ candyMachineStats: CandyMachineInfoType }> = ({
     <section aria-label="candy-machine-data" className="columns">
       <div className="column is-one-third" style={{ textAlign: "left" }}>
         <div>
-          <p style={{ fontWeight: "bold" }}>{candyMachineStats.price}</p>
-          <p>3 SOL</p>
+          <p style={{ fontWeight: "bold" }}>Mint Price</p>
+          <p>{candyMachineStats.price}</p>
         </div>
         <br />
         <div>
-          <p style={{ fontWeight: "bold" }}>{candyMachineStats.liveDate}</p>
-          <p>Febrary 2, 2022</p>
-          <p>6 hours ago</p>
+          <p style={{ fontWeight: "bold" }}>Live date</p>
+          <p>{candyMachineStats.liveDate}</p>
+          {/* <p>6 hours ago</p> */}
         </div>
       </div>
       <div className="column is-one-third" style={{ textAlign: "left" }}>
@@ -38,8 +38,8 @@ const MintInfo: React.FC<{ candyMachineStats: CandyMachineInfoType }> = ({
               </td>
             </tr>
             <tr>
+              <td>Royalties</td>
               <td>{candyMachineStats.royalties}</td>
-              <td></td>
             </tr>
           </tbody>
         </table>
@@ -49,9 +49,9 @@ const MintInfo: React.FC<{ candyMachineStats: CandyMachineInfoType }> = ({
 
         <table className="table">
           <tbody>
-            {candyMachineStats.creators.map((creator) => {
+            {candyMachineStats.creators.map((creator, index) => {
               return (
-                <tr>
+                <tr key={index}>
                   <td>{creator}</td>
                   {/* <td>25%</td> */}
                 </tr>

@@ -17,7 +17,7 @@ test("container for list of NTFs appears", () => {
   expect(Element).toBeInTheDocument();
 });
 
-test("NTF list items appears", () => {
+test.skip("NTF list items appears", () => {
   const connection = new Connection(clusterApiUrl("testnet"));
   render(<DisplayNFTs connection={connection} mintAddresses={mintAddresses} />);
   const Element = screen.getAllByRole("listitem");
