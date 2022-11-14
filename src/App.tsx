@@ -13,11 +13,6 @@ import {
 } from "./web3/candyMachineV2";
 import { Metaplex } from "@metaplex-foundation/js";
 
-export interface NftType {
-  name: string;
-  url: string;
-}
-
 export interface CandyMachineInfoType {
   items: number;
   price: string;
@@ -42,7 +37,6 @@ function App() {
       liveDate: "",
       creators: [""],
     });
-  const [nfts, setNfts] = useState<NftType[]>([{ name: "", url: "" }]);
   const connection = useRef<Connection>(
     new Connection(clusterApiUrl("devnet"))
   );
@@ -89,16 +83,18 @@ function App() {
     <div role="container" className="App">
       <SearchBar
         setMintAddresses={setMintAddresses}
-        setNfts={setNfts}
         connection={connection.current}
       />
       <MintInfo />
-      {nfts[0].name !== "" && (
+      {mintAddresses[0] !== "" && (
         <>
           <h3 className="title is-3" style={{ textAlign: "center" }}>
             List of NFTs
           </h3>
-          <DisplayNFTs nfts={nfts} />
+          <DisplayNFTs
+            connection={connection.current}
+            mintAddresses={mintAddresses}
+          />
         </>
       )}
     </div>

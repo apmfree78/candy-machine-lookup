@@ -100,3 +100,20 @@ export const fetchNft = async (connection: Connection, address: string) => {
     .findByMint({ mintAddress: new PublicKey(address) });
   return asset;
 };
+
+// using nft hash address ,return nft metadata , including name and url
+export const fetchNfts = async (
+  connection: Connection,
+  addresses: string[]
+) => {
+  const mx = Metaplex.make(connection);
+  // obtain nfts from mindAddresses
+  const nfts = await Promise.all(
+    addresses.map(async (address) => {
+      const nft = await fetchNft(connection, address);
+      console.log(nft);
+      return { name: nft.name, url: nft.json?.image || "" };
+    })
+  );
+  return nfts;
+};

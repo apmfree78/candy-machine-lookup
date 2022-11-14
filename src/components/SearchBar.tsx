@@ -6,18 +6,15 @@ import {
   fetchNft,
 } from "../web3/candyMachineV2";
 import { useState } from "react";
-import { NftType } from "../App";
 
 interface SearchBarProps {
   setMintAddresses: (addresses: string[]) => void;
-  setNfts: (addresses: NftType[]) => void;
   connection: Connection;
 }
 
 // search bar for user to input Candy Machine they would like to search for
 const SearchBar: React.FC<SearchBarProps> = ({
   setMintAddresses,
-  setNfts,
   connection,
 }) => {
   const [address, setAddress] = useState("");
