@@ -1,14 +1,9 @@
 import { useRef, useState } from "react";
 import { Connection } from "@solana/web3.js";
 import { User } from "../hooks/useUser";
+import { NFT_PER_PAGE, NftType } from "../web3/infoAndTypes";
 import { fetchNfts } from "../web3/candyMachineV2";
 import NFTCard from "./NftCard";
-
-export interface NftType {
-  name: string;
-  url: string;
-}
-const NFT_PER_PAGE = 9;
 
 // component to display NFTs in a grid with
 // up to 3 in each row

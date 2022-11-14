@@ -1,22 +1,12 @@
-import { Metaplex, PublicKey } from "@metaplex-foundation/js";
-import { Connection } from "@solana/web3.js";
-import {
-  getMintAddresses,
-  getCandyMachineCreator,
-  fetchNft,
-} from "../web3/candyMachineV2";
+import { PublicKey } from "@metaplex-foundation/js";
 import { useState } from "react";
 
 interface SearchBarProps {
-  setMintAddresses: (addresses: string[]) => void;
-  connection: Connection;
+  getCandyMachineData: (candyMachineId: PublicKey) => void;
 }
 
 // search bar for user to input Candy Machine they would like to search for
-const SearchBar: React.FC<SearchBarProps> = ({
-  setMintAddresses,
-  connection,
-}) => {
+const SearchBar: React.FC<SearchBarProps> = ({ getCandyMachineData }) => {
   const [address, setAddress] = useState("");
 
   // update current input to state
@@ -37,42 +27,45 @@ const SearchBar: React.FC<SearchBarProps> = ({
       // transfor address to PublicKey object
       const candyMachineId = new PublicKey(address);
 
-      // extract list of candoMachine Creators using candyMachineId
-      console.log("getting creators");
-      const candyMachineCreator = await getCandyMachineCreator(candyMachineId);
+      // call getCandyMachineData to obtain mint addresses of each nft
+      // and candymachine stats
+      getCandyMachineData(candyMachineId);
+      // // extract list of candoMachine Creators using candyMachineId
+      // console.log('getting creators');
+      // const candyMachineCreator = await getCandyMachineCreator(candyMachineId);
 
-      //connecting to candy machine to get general candy machine info
-      const mx = Metaplex.make(connection);
-      console.log("made connection to Metaplex");
-      const candyMachine = await mx
-        .candyMachinesV2()
-        .findByAddress({ address: candyMachineId }); // get candy Machine stats
-      console.log(candyMachine);
+      // //connecting to candy machine to get general candy machine info
+      // const mx = Metaplex.make(connection);
+      // console.log('made connection to Metaplex');
+      // const candyMachine = await mx
+      //   .candyMachinesV2()
+      //   .findByAddress({ address: candyMachineId }); // get candy Machine stats
+      // console.log(candyMachine);
 
-      // finally, get mint addresses using first creator
-      console.log("getting mint addresses");
-      const mintAddresses = await getMintAddresses(
-        candyMachineCreator[0],
-        connection
-      );
-      console.log(mintAddresses);
+      // // finally, get mint addresses using first creator
+      // console.log('getting mint addresses');
+      // const mintAddresses = await getMintAddresses(
+      //   candyMachineCreator[0],
+      //   connection
+      // );
+      // console.log(mintAddresses);
 
-      // obtain nfts from mindAddresses
-      const nfts = await Promise.all(
-        mintAddresses.map(async (address) => {
-          const nft = await fetchNft(connection, address);
-          console.log(nft);
-          return { name: nft.name, url: nft.json?.image || "" };
-        })
-      );
+      // // obtain nfts from mindAddresses
+      // const nfts = await Promise.all(
+      //   mintAddresses.map(async (address) => {
+      //     const nft = await fetchNft(connection, address);
+      //     console.log(nft);
+      //     return { name: nft.name, url: nft.json?.image || '' };
+      //   })
+      // );
 
-      console.log(nfts);
-      //setting state
-      setNfts([...nfts]);
-      setMintAddresses([...mintAddresses]);
+      // console.log(nfts);
+      // //setting state
+      // setMintAddresses([...mintAddresses]);
     } else alert("Invalid address submitted, please try again!");
   };
 
+  // search box where user inputs candy machine id
   return (
     <div
       className="field has-addons"

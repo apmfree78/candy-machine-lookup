@@ -3,6 +3,7 @@ import { Connection, clusterApiUrl, PublicKey } from "@solana/web3.js";
 import "bulmaswatch/sandstone/bulmaswatch.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./App.css";
+import { CandyMachineInfoType } from "./web3/infoAndTypes";
 import MintInfo from "./components/MintInfo";
 import DisplayNFTs from "./components/DisplayNFTs";
 import SearchBar from "./components/SearchBar";
@@ -11,20 +12,8 @@ import {
   getCandyMachineStats,
   getMintAddresses,
 } from "./web3/candyMachineV2";
-import { Metaplex } from "@metaplex-foundation/js";
-
-export interface CandyMachineInfoType {
-  items: number;
-  price: string;
-  redeemed: number;
-  remaining: number;
-  royalties: string;
-  liveDate: string;
-  creators: string[];
-}
 
 function App() {
-  const [page, setPage] = useState(1);
   // mint addresses for nfts obtained from candy machine
   const [mintAddresses, setMintAddresses] = useState([""]);
   const [candyMachineStats, setCandyMachineStats] =
@@ -81,11 +70,8 @@ function App() {
 
   return (
     <div role="container" className="App">
-      <SearchBar
-        setMintAddresses={setMintAddresses}
-        connection={connection.current}
-      />
-      <MintInfo />
+      <SearchBar getCandyMachineData={getCandyMachineData} />
+      <MintInfo candyMachineStats={candyMachineStats} />
       {mintAddresses[0] !== "" && (
         <>
           <h3 className="title is-3" style={{ textAlign: "center" }}>
