@@ -1,8 +1,7 @@
-import { Connection, clusterApiUrl, PublicKey } from "@solana/web3.js";
+import { Connection, PublicKey } from "@solana/web3.js";
 import { Metaplex } from "@metaplex-foundation/js";
 import bs58 from "bs58";
 
-// const connection = new Connection(clusterApiUrl('mainnet-beta'));
 const MAX_NAME_LENGTH = 32;
 const MAX_URI_LENGTH = 200;
 const MAX_SYMBOL_LENGTH = 10;
@@ -40,8 +39,9 @@ const TOKEN_METADATA_PROGRAM = new PublicKey(
 const CANDY_MACHINE_V2_PROGRAM = new PublicKey(
   "cndy3Z4yapfJBmL3ShUp5exZKqR3z33thTzeNMm2gRZ"
 );
-// const candyMachineId = new PublicKey('ENTER_YOUR_CANDY_MACHINE_ID_HERE');
 
+// use candyMachineId to extract mint addresses
+// of nfts in collection
 export const getMintAddresses = async (
   firstCreatorAddress: PublicKey,
   connection: Connection
@@ -51,11 +51,9 @@ export const getMintAddresses = async (
     {
       // The mint address is located at byte 33 and lasts for 32 bytes.
       dataSlice: { offset: 33, length: 32 },
-
       filters: [
         // Only get Metadata accounts.
         { dataSize: MAX_METADATA_LEN },
-
         // Filter using the first creator.
         {
           memcmp: {
@@ -66,12 +64,12 @@ export const getMintAddresses = async (
       ],
     }
   );
-
   return metadataAccounts.map((metadataAccountInfo) =>
     bs58.encode(metadataAccountInfo.account.data)
   );
 };
 
+// using candymachine id , get candy machine creators
 export const getCandyMachineCreator = async (
   candyMachine: PublicKey
 ): Promise<[PublicKey, number]> =>
@@ -80,6 +78,21 @@ export const getCandyMachineCreator = async (
     CANDY_MACHINE_V2_PROGRAM
   );
 
+//connecting to candy machine to get general candy machine info
+export const getCandyMachineStats = async (
+  candyMachineId: PublicKey,
+  connection: Connection
+) => {
+  const mx = Metaplex.make(connection);
+  console.log("made connection to Metaplex");
+  const candyMachine = await mx
+    .candyMachinesV2()
+    .findByAddress({ address: candyMachineId }); // get candy Machine stats
+  console.log(candyMachine);
+  return candyMachine;
+};
+
+// using nft hash address ,return nft metadata , including name and url
 export const fetchNft = async (connection: Connection, address: string) => {
   const mx = Metaplex.make(connection);
   const asset = await mx
@@ -87,20 +100,3 @@ export const fetchNft = async (connection: Connection, address: string) => {
     .findByMint({ mintAddress: new PublicKey(address) });
   return asset;
 };
-
-export const fetchNfts = async (
-  connection: Connection,
-  addresses: string[]
-) => {
-  const mx = Metaplex.make(connection);
-  // converting string array addresses to PublicKeys
-  const mints = addresses.map((address) => new PublicKey(address));
-  //get nft metadata
-  const asset = await mx.nfts().findAllByMintList({ mints });
-  return asset;
-};
-
-// (async () => {
-//   const candyMachineCreator = await getCandyMachineCreator(candyMachineId);
-//   getMintAddresses(candyMachineCreator[0]);
-// })();

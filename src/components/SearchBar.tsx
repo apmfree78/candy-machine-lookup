@@ -3,7 +3,6 @@ import { Connection } from "@solana/web3.js";
 import {
   getMintAddresses,
   getCandyMachineCreator,
-  fetchNfts,
   fetchNft,
 } from "../web3/candyMachineV2";
 import { useState } from "react";
@@ -45,6 +44,14 @@ const SearchBar: React.FC<SearchBarProps> = ({
       console.log("getting creators");
       const candyMachineCreator = await getCandyMachineCreator(candyMachineId);
 
+      //connecting to candy machine to get general candy machine info
+      const mx = Metaplex.make(connection);
+      console.log("made connection to Metaplex");
+      const candyMachine = await mx
+        .candyMachinesV2()
+        .findByAddress({ address: candyMachineId }); // get candy Machine stats
+      console.log(candyMachine);
+
       // finally, get mint addresses using first creator
       console.log("getting mint addresses");
       const mintAddresses = await getMintAddresses(
@@ -57,11 +64,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
       const nfts = await Promise.all(
         mintAddresses.map(async (address) => {
           const nft = await fetchNft(connection, address);
+          console.log(nft);
           return { name: nft.name, url: nft.json?.image || "" };
         })
       );
-
-      // resolving promises
 
       console.log(nfts);
       //setting state
