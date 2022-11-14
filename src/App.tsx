@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Connection, clusterApiUrl, PublicKey } from "@solana/web3.js";
 import "bulmaswatch/sandstone/bulmaswatch.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
