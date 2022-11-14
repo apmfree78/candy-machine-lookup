@@ -21,6 +21,8 @@ const DisplayNFTs: React.FC<{
   const TOTAL_NFTs = mintAddresses.length;
   const TOTAL_PAGES = Math.floor(TOTAL_NFTs / NFT_PER_PAGE) + 1;
 
+  // page on current page, slices addresses and call web3 function
+  // to get nfts
   const getNftByPage = async (
     pageNumber: number,
     addresses: string[]
@@ -48,6 +50,7 @@ const DisplayNFTs: React.FC<{
     return await fetchNfts(connection, nftsAddressesToShow);
   };
 
+  // pulls NFTs for current page and sets state
   const showPage = async (pageNumber: number = 1) => {
     // start by updating current page
     page.current = pageNumber;
@@ -58,16 +61,37 @@ const DisplayNFTs: React.FC<{
     // set state
     setNfts([...nftData]);
   };
+
   return (
-    <section role="list" className="columns is-multiline">
-      {nfts.map((nft, key) => {
-        return (
-          <div role="listitem" key={key} className="column is-one-third">
-            <NFTCard name={nft.name} url={nft.url} />
-          </div>
-        );
-      })}
-    </section>
+    <>
+      <section role="list" className="columns is-multiline">
+        {nfts.map((nft, key) => {
+          return (
+            <div role="listitem" key={key} className="column is-one-third">
+              <NFTCard name={nft.name} url={nft.url} />
+            </div>
+          );
+        })}
+      </section>
+      <div>
+        <button
+          disabled={page.current === 0}
+          onClick={async () => {
+            return await showPage(page.current - 1);
+          }}
+        >
+          &#8810; Previous Page
+        </button>
+        <button
+          disabled={page.current === TOTAL_PAGES}
+          onClick={async () => {
+            return await showPage(page.current + 1);
+          }}
+        >
+          Next Page &#8811;
+        </button>
+      </div>
+    </>
   );
 };
 
