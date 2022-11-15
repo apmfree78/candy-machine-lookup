@@ -93,7 +93,7 @@ function App() {
   // display main app , starting with search bar
   // ****************************************
   return (
-    <div role="container" className="App">
+    <div className="App">
       <h2 className="title is-2" style={{ textAlign: "center" }}>
         Search Candy Machine V2
       </h2>

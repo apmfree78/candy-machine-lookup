@@ -105,6 +105,7 @@ const DisplayNFTs: React.FC<{
         {`Page ${page.current} of ${TOTAL_PAGES}`}
         <button
           className="button is-info is-small is-rounded"
+          style={{ minWidth: "20vw" }}
           disabled={page.current === TOTAL_PAGES}
           onClick={async () => {
             return await showPage(page.current + 1);

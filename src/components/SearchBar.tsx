@@ -33,6 +33,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
       // and candymachine stats
       getCandyMachineData(candyMachineId);
     } else alert("Invalid address submitted, please try again!");
+
+    // clear input field
+    setAddress("");
   };
 
   // search box where user inputs candy machine id
@@ -50,7 +53,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           className="input is-large"
           type="text"
           value={address}
-          placeholder="Find Candy Machine"
+          placeholder="Enter valid id"
           onChange={handleChange}
         />
       </div>
