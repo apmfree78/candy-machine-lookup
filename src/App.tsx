@@ -55,8 +55,8 @@ function App() {
     );
     console.log(mintAddresses);
 
-    let UnixTime = 1000;
     // convert UNIX date to Date object
+    let UnixTime = 1000;
     if (candyMachineInfo?.goLiveDate)
       UnixTime = candyMachineInfo?.goLiveDate?.toNumber() * 1000;
     const liveDate = new Date(UnixTime);

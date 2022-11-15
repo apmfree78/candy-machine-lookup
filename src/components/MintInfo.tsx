@@ -3,17 +3,19 @@ import { CandyMachineInfoType } from "../web3/infoAndTypes";
 const MintInfo: React.FC<{ candyMachineStats: CandyMachineInfoType }> = ({
   candyMachineStats,
 }) => {
+  // correctly formatted date
+  const liveDate = `${candyMachineStats.liveDate.getMonth()}/${candyMachineStats.liveDate.getDate()}/${candyMachineStats.liveDate.getFullYear()}`;
   return (
     <section aria-label="candy-machine-data" className="columns">
       <div className="column is-one-third" style={{ textAlign: "left" }}>
         <div>
           <p style={{ fontWeight: "bold" }}>Mint Price</p>
-          <p>{candyMachineStats.price}</p>
+          <p>{candyMachineStats.price} SOL</p>
         </div>
         <br />
         <div>
           <p style={{ fontWeight: "bold" }}>Live date</p>
-          <p>{candyMachineStats.liveDate.getDate()}</p>
+          <p>{liveDate}</p>
           {/* <p>6 hours ago</p> */}
         </div>
       </div>
