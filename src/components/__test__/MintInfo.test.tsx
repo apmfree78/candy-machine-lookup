@@ -4,10 +4,10 @@ import { faker } from "@faker-js/faker";
 
 const candyMachineStats = {
   items: faker.datatype.number(),
-  price: faker.datatype.string(),
+  price: faker.datatype.number(),
   redeemed: faker.datatype.number(),
   remaining: faker.datatype.number(),
-  liveDate: faker.datatype.string(),
+  liveDate: new Date(),
   royalties: faker.datatype.string(),
   creators: [
     faker.datatype.hexadecimal({ length: 40 }),

@@ -101,13 +101,12 @@ export const fetchNft = async (connection: Connection, address: string) => {
   return asset;
 };
 
-// using nft hash address ,return nft metadata , including name and url
+// using nft hash address array ,return nft metadata , including name and url
 export const fetchNfts = async (
   connection: Connection,
   addresses: string[]
 ) => {
-  const mx = Metaplex.make(connection);
-  // obtain nfts from mindAddresses
+  // obtain nfts from addresses
   const nfts = await Promise.all(
     addresses.map(async (address) => {
       const nft = await fetchNft(connection, address);

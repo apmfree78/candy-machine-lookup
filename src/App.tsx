@@ -19,11 +19,11 @@ function App() {
   const [candyMachineStats, setCandyMachineStats] =
     useState<CandyMachineInfoType>({
       items: 0,
-      price: "0",
+      price: 0,
       redeemed: 0,
       remaining: 0,
       royalties: "0%",
-      liveDate: "",
+      liveDate: new Date(),
       creators: [""],
     });
   const connection = useRef<Connection>(
@@ -55,14 +55,22 @@ function App() {
     );
     console.log(mintAddresses);
 
+    let UnixTime = 1000;
+    // convert UNIX date to Date object
+    if (candyMachineInfo?.goLiveDate)
+      UnixTime = candyMachineInfo?.goLiveDate?.toNumber() * 1000;
+    const liveDate = new Date(UnixTime);
+
     //setting state
     setMintAddresses([...mintAddresses]);
     setCandyMachineStats({
       items: candyMachineInfo.itemsAvailable.toNumber(),
-      price: candyMachineInfo.price.toString(),
+      price:
+        candyMachineInfo.price.basisPoints.toNumber() /
+        10 ** candyMachineInfo.price.currency.decimals,
       redeemed: candyMachineInfo.itemsMinted.toNumber(),
       remaining: candyMachineInfo.itemsRemaining.toNumber(),
-      liveDate: candyMachineInfo.goLiveDate?.toString() || "",
+      liveDate,
       royalties: (candyMachineInfo.sellerFeeBasisPoints / 100).toString() + "%",
       creators,
     });
@@ -71,8 +79,10 @@ function App() {
   return (
     <div role="container" className="App">
       <SearchBar getCandyMachineData={getCandyMachineData} />
-      <MintInfo candyMachineStats={candyMachineStats} />
-      {mintAddresses[0] !== "" && (
+      {candyMachineStats.items === 0 || (
+        <MintInfo candyMachineStats={candyMachineStats} />
+      )}
+      {mintAddresses[0] === "" || (
         <>
           <h3 className="title is-3" style={{ textAlign: "center" }}>
             List of NFTs

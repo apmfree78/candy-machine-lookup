@@ -30,38 +30,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ getCandyMachineData }) => {
       // call getCandyMachineData to obtain mint addresses of each nft
       // and candymachine stats
       getCandyMachineData(candyMachineId);
-      // // extract list of candoMachine Creators using candyMachineId
-      // console.log('getting creators');
-      // const candyMachineCreator = await getCandyMachineCreator(candyMachineId);
-
-      // //connecting to candy machine to get general candy machine info
-      // const mx = Metaplex.make(connection);
-      // console.log('made connection to Metaplex');
-      // const candyMachine = await mx
-      //   .candyMachinesV2()
-      //   .findByAddress({ address: candyMachineId }); // get candy Machine stats
-      // console.log(candyMachine);
-
-      // // finally, get mint addresses using first creator
-      // console.log('getting mint addresses');
-      // const mintAddresses = await getMintAddresses(
-      //   candyMachineCreator[0],
-      //   connection
-      // );
-      // console.log(mintAddresses);
-
-      // // obtain nfts from mindAddresses
-      // const nfts = await Promise.all(
-      //   mintAddresses.map(async (address) => {
-      //     const nft = await fetchNft(connection, address);
-      //     console.log(nft);
-      //     return { name: nft.name, url: nft.json?.image || '' };
-      //   })
-      // );
-
-      // console.log(nfts);
-      // //setting state
-      // setMintAddresses([...mintAddresses]);
     } else alert("Invalid address submitted, please try again!");
   };
 

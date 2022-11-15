@@ -13,7 +13,7 @@ const MintInfo: React.FC<{ candyMachineStats: CandyMachineInfoType }> = ({
         <br />
         <div>
           <p style={{ fontWeight: "bold" }}>Live date</p>
-          <p>{candyMachineStats.liveDate}</p>
+          <p>{candyMachineStats.liveDate.getDate()}</p>
           {/* <p>6 hours ago</p> */}
         </div>
       </div>
@@ -28,13 +28,13 @@ const MintInfo: React.FC<{ candyMachineStats: CandyMachineInfoType }> = ({
             <tr>
               <td>Items Redeemed</td>
               <td>
-                `${candyMachineStats.redeemed}/${candyMachineStats.items}`
+                {`${candyMachineStats.redeemed}/${candyMachineStats.items}`}
               </td>
             </tr>
             <tr>
               <td>Items Remaining</td>
               <td>
-                `${candyMachineStats.remaining}/${candyMachineStats.items}`
+                {`${candyMachineStats.remaining}/${candyMachineStats.items}`}
               </td>
             </tr>
             <tr>
@@ -53,7 +53,6 @@ const MintInfo: React.FC<{ candyMachineStats: CandyMachineInfoType }> = ({
               return (
                 <tr key={index}>
                   <td>{creator}</td>
-                  {/* <td>25%</td> */}
                 </tr>
               );
             })}

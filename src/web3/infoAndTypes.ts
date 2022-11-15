@@ -1,10 +1,10 @@
 export interface CandyMachineInfoType {
   items: number;
-  price: string;
+  price: number;
   redeemed: number;
   remaining: number;
   royalties: string;
-  liveDate: string;
+  liveDate: Date;
   creators: string[];
 }
 
@@ -13,4 +13,4 @@ export interface NftType {
   url: string;
 }
 
-const NFT_PER_PAGE = 9;
+export const NFT_PER_PAGE = 9;

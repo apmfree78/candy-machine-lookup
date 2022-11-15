@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Connection } from "@solana/web3.js";
 import { NFT_PER_PAGE, NftType } from "../web3/infoAndTypes";
 import { fetchNfts } from "../web3/candyMachineV2";
@@ -13,8 +13,14 @@ const DisplayNFTs: React.FC<{
   const [nfts, setNfts] = useState<NftType[]>([{ name: "", url: "" }]);
   const page = useRef(1);
   const TOTAL_NFTs = mintAddresses.length;
-  const TOTAL_PAGES = Math.floor(TOTAL_NFTs / NFT_PER_PAGE) + 1;
+  const TOTAL_PAGES = Math.ceil(TOTAL_NFTs / NFT_PER_PAGE);
+  console.log("total page", TOTAL_PAGES);
+  console.log("total nfs", TOTAL_NFTs);
 
+  // show first page when page first loads
+  useEffect(() => {
+    (async () => await showPage(1))();
+  }, []);
   // page on current page, slices addresses and call web3 function
   // to get nfts
   const getNftByPage = async (
@@ -31,11 +37,15 @@ const DisplayNFTs: React.FC<{
       // on last page, lets calculate remaining NFTs
       const remainingNFTCount = TOTAL_NFTs % NFT_PER_PAGE;
 
+      // TOTAL_NFTs % NFT_PER_PAGE === 0 then there
+      // is no remainder
+      if (TOTAL_NFTs % NFT_PER_PAGE === 0)
+        lastNFT = firstNFT + NFT_PER_PAGE - 1;
+      else lastNFT = firstNFT + remainingNFTCount;
       // add to firstNFT to determine last NFT position
-      lastNFT = firstNFT + remainingNFTCount;
     } else {
       // not last page so just add 8
-      lastNFT = firstNFT + 8;
+      lastNFT = firstNFT + NFT_PER_PAGE - 1;
     }
 
     //extracting nfts to show on current page
@@ -68,14 +78,16 @@ const DisplayNFTs: React.FC<{
         })}
       </section>
       <div>
+        {/* pagination buttons */}
         <button
-          disabled={page.current === 0}
+          disabled={page.current === 1}
           onClick={async () => {
             return await showPage(page.current - 1);
           }}
         >
           &#8810; Previous Page
         </button>
+        {`Page ${page.current} of ${TOTAL_PAGES}`}
         <button
           disabled={page.current === TOTAL_PAGES}
           onClick={async () => {
