@@ -38,12 +38,14 @@ function App() {
     const candyMachineCreator = await getCandyMachineCreator(candyMachineId);
 
     // convert creators to abbreviated string to display
-    const creators = candyMachineCreator.map((creator) => {
+    const creators = candyMachineCreator.map((creator, index, creators) => {
       const _creator = creator.toString();
 
-      return `${_creator.substring(0, 5)}...${_creator.substring(
-        _creator.length - 5
-      )}`;
+      if (index !== creators.length - 1)
+        return `${_creator.substring(0, 5)}...${_creator.substring(
+          _creator.length - 5
+        )}`;
+      else return ""; // exclude final results which is not a creator
     });
 
     //connecting to candy machine to get general candy machine info
@@ -98,6 +100,7 @@ function App() {
           <h3 className="title is-3" style={{ textAlign: "center" }}>
             List of NFTs
           </h3>
+          {/* display list of nfts paginated */}
           <DisplayNFTs
             connection={connection.current}
             mintAddresses={mintAddresses}

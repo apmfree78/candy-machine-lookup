@@ -1,5 +1,6 @@
 import { Connection, PublicKey } from "@solana/web3.js";
 import { Metaplex } from "@metaplex-foundation/js";
+import { Metadata } from "@metaplex-foundation/mpl-token-metadata";
 import {
   TOKEN_METADATA_PROGRAM,
   MAX_METADATA_LEN,

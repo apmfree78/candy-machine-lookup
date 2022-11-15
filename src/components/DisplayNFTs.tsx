@@ -30,7 +30,7 @@ const DisplayNFTs: React.FC<{
     //starting index
     const firstNFT = (pageNumber - 1) * NFT_PER_PAGE;
 
-    let lastNFT; // position of last nft to be shown on page
+    let lastNFT: number; // position of last nft to be shown on page
 
     //checking if on last page
     if (pageNumber === TOTAL_PAGES) {
@@ -47,9 +47,11 @@ const DisplayNFTs: React.FC<{
       // not last page so just add 8
       lastNFT = firstNFT + NFT_PER_PAGE - 1;
     }
-
+    let nftsAddressesToShow: string[];
     //extracting nfts to show on current page
-    const nftsAddressesToShow = addresses.slice(firstNFT, lastNFT + 1);
+    if (TOTAL_PAGES > 1)
+      nftsAddressesToShow = addresses.slice(firstNFT, lastNFT + 1);
+    else nftsAddressesToShow = [...addresses]; // if 1 page then nothing to slice
     //splice addresses based on page
     return await fetchNfts(connection, nftsAddressesToShow);
   };
@@ -68,6 +70,7 @@ const DisplayNFTs: React.FC<{
 
   return (
     <>
+      {/* display ntfs in grid  */}
       <section role="list" className="columns is-multiline">
         {nfts.map((nft, key) => {
           return (
