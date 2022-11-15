@@ -5,7 +5,8 @@ import { fetchNfts } from "../web3/candyMachineV2";
 import NFTCard from "./NftCard";
 
 // component to display NFTs in a grid with
-// up to 3 in each row
+// up to 3 in each row and total of 9 per page
+// complete with pagination (see bottom of screen)
 const DisplayNFTs: React.FC<{
   connection: Connection;
   mintAddresses: string[];
@@ -18,15 +19,18 @@ const DisplayNFTs: React.FC<{
   console.log("total nfs", TOTAL_NFTs);
 
   // show first page when page first loads
+  // also reload when mintAddresses updates
   useEffect(() => {
     (async () => await showPage(1))();
-  }, []);
-  // page on current page, slices addresses and call web3 function
-  // to get nfts
+  }, [mintAddresses]);
+
+  // get assests for current page, slices addresses, and call web3 function
+  // to get nft names and urls
   const getNftByPage = async (
     pageNumber: number,
     addresses: string[]
   ): Promise<NftType[]> => {
+    // calculations for pagination
     //starting index
     const firstNFT = (pageNumber - 1) * NFT_PER_PAGE;
 

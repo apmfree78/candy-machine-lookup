@@ -3,10 +3,14 @@ import { useState } from "react";
 
 interface SearchBarProps {
   getCandyMachineData: (candyMachineId: PublicKey) => void;
+  loading: boolean;
 }
 
 // search bar for user to input Candy Machine they would like to search for
-const SearchBar: React.FC<SearchBarProps> = ({ getCandyMachineData }) => {
+const SearchBar: React.FC<SearchBarProps> = ({
+  getCandyMachineData,
+  loading,
+}) => {
   const [address, setAddress] = useState("");
 
   // update current input to state
@@ -54,8 +58,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ getCandyMachineData }) => {
       </div>
       <div className="control">
         <button
-          className="button is-info is-large"
-          disabled={address === ""}
+          className={`button is-info is-large ${loading && "isloading"}`}
+          disabled={address === "" || loading}
           onClick={handleSubmit}
         >
           Search

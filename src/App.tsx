@@ -16,6 +16,7 @@ import {
 function App() {
   // mint addresses for nfts obtained from candy machine
   const [mintAddresses, setMintAddresses] = useState([""]);
+  // candy machine stats state
   const [candyMachineStats, setCandyMachineStats] =
     useState<CandyMachineInfoType>({
       items: 0,
@@ -26,6 +27,7 @@ function App() {
       liveDate: new Date(),
       creators: [""],
     });
+  const [loading, setLoading] = useState(false);
   const connection = useRef<Connection>(
     new Connection(clusterApiUrl("devnet"))
   );
@@ -33,6 +35,9 @@ function App() {
   // using candyMachineId gets candy machine stats and nft mint addresses
   // and this state is save to state
   const getCandyMachineData = async (candyMachineId: PublicKey) => {
+    //set loading state
+    setLoading(true);
+
     // extract list of candoMachine Creators using candyMachineId
     console.log("getting creators");
     const candyMachineCreator = await getCandyMachineCreator(candyMachineId);
@@ -71,6 +76,7 @@ function App() {
 
     //setting state
     setMintAddresses([...mintAddresses]);
+    setLoading(false);
     setCandyMachineStats({
       items: candyMachineInfo.itemsAvailable.toNumber(),
       price:
@@ -83,7 +89,9 @@ function App() {
       creators,
     });
   };
-
+  // ****************************************
+  // display main app , starting with search bar
+  // ****************************************
   return (
     <div role="container" className="App">
       <h2 className="title is-2" style={{ textAlign: "center" }}>
