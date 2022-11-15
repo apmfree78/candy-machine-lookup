@@ -2,7 +2,7 @@
 
 This app allows you to search for Candy Machine v2 NFTs on Solana network.
 
-Note: **Current set to work on Solana devnet**
+### Note: **Current set to work on Solana devnet**
 
 ## Place valid Candy Machine v2 devnet id in the search box and click 'search'.
 
