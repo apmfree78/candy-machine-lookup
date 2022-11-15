@@ -1,10 +1,9 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
 import App from "./App";
 
 jest.mock("axios", () => () => null);
-test.skip("renders learn react link", () => {
+test("renders App headline", () => {
   render(<App />);
-  const linkElement = screen.getByRole("container");
+  const linkElement = screen.getByRole("heading");
   expect(linkElement).toBeInTheDocument();
 });

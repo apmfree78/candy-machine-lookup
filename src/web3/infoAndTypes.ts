@@ -22,6 +22,8 @@ export const CANDY_MACHINE_V2_PROGRAM = new PublicKey(
   "cndy3Z4yapfJBmL3ShUp5exZKqR3z33thTzeNMm2gRZ"
 );
 
+export const SolanaValidator = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
+
 export const NFT_PER_PAGE = 9;
 
 const MAX_NAME_LENGTH = 32;

@@ -52,7 +52,6 @@ export const getCandyMachineStats = async (
   connection: Connection
 ) => {
   const mx = Metaplex.make(connection);
-  console.log("made connection to Metaplex");
   const candyMachine = await mx
     .candyMachinesV2()
     .findByAddress({ address: candyMachineId }); // get candy Machine stats
@@ -78,7 +77,6 @@ export const fetchNfts = async (
   const nfts = await Promise.all(
     addresses.map(async (address) => {
       const nft = await fetchNft(connection, address);
-      console.log(nft);
       return { name: nft.name, url: nft.json?.image || "" };
     })
   );

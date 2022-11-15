@@ -1,3 +1,5 @@
+// display individual NFT with name below, can be expanded to show
+// nft attributes etc
 const NFTCard: React.FC<{ name: string; url: string }> = ({ name, url }) => {
   return (
     <div

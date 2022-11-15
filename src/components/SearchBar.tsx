@@ -1,5 +1,6 @@
 import { PublicKey } from "@metaplex-foundation/js";
 import { useState } from "react";
+import { SolanaValidator } from "../web3/infoAndTypes";
 
 interface SearchBarProps {
   getCandyMachineData: (candyMachineId: PublicKey) => void;
@@ -20,15 +21,12 @@ const SearchBar: React.FC<SearchBarProps> = ({
   };
 
   const handleSubmit = async () => {
-    //first validate address is a valid solana address
-    const validator = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
-    const isValid = validator.test(address);
+    //first check that address is a valid solana address
+    const isValid = SolanaValidator.test(address);
 
     // if valid set address
     if (isValid) {
-      // const nft = await fetchNft(connection, address);
-      // console.log(`${nft.name} ${nft.json?.image}`);
-      // transfor address to PublicKey object
+      // transform address to PublicKey object
       const candyMachineId = new PublicKey(address);
 
       // call getCandyMachineData to obtain mint addresses of each nft
@@ -58,7 +56,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       </div>
       <div className="control">
         <button
-          className={`button is-info is-large ${loading && "isloading"}`}
+          className={`button is-info is-large ${loading && "is-loading"}`}
           disabled={address === "" || loading}
           onClick={handleSubmit}
         >

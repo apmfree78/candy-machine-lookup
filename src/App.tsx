@@ -98,7 +98,7 @@ function App() {
         Search Candy Machine V2
       </h2>
       {/* Search Bar where user submits Candy Machine ID to look */}
-      <SearchBar getCandyMachineData={getCandyMachineData} />
+      <SearchBar getCandyMachineData={getCandyMachineData} loading={loading} />
       {candyMachineStats.items === 0 || (
         // show mint price, publish date, mint stats and creator ids
         <MintInfo candyMachineStats={candyMachineStats} />
