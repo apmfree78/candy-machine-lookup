@@ -77,9 +77,17 @@ const DisplayNFTs: React.FC<{
           );
         })}
       </section>
-      <div>
-        {/* pagination buttons */}
+      {/* pagination buttons */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          paddingTop: "1vh",
+          paddingBottom: "3vh",
+        }}
+      >
         <button
+          className="button is-info is-small is-rounded"
           disabled={page.current === 1}
           onClick={async () => {
             return await showPage(page.current - 1);
@@ -89,6 +97,7 @@ const DisplayNFTs: React.FC<{
         </button>
         {`Page ${page.current} of ${TOTAL_PAGES}`}
         <button
+          className="button is-info is-small is-rounded"
           disabled={page.current === TOTAL_PAGES}
           onClick={async () => {
             return await showPage(page.current + 1);

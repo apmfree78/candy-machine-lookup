@@ -37,8 +37,14 @@ function App() {
     console.log("getting creators");
     const candyMachineCreator = await getCandyMachineCreator(candyMachineId);
 
-    // convert creators to string to display
-    const creators = candyMachineCreator.map((creator) => creator.toString());
+    // convert creators to abbreviated string to display
+    const creators = candyMachineCreator.map((creator) => {
+      const _creator = creator.toString();
+
+      return `${_creator.substring(0, 5)}...${_creator.substring(
+        _creator.length - 5
+      )}`;
+    });
 
     //connecting to candy machine to get general candy machine info
     const candyMachineInfo = await getCandyMachineStats(
@@ -78,8 +84,13 @@ function App() {
 
   return (
     <div role="container" className="App">
+      <h2 className="title is-2" style={{ textAlign: "center" }}>
+        Search Candy Machine V2
+      </h2>
+      {/* Search Bar where user submits Candy Machine ID to look */}
       <SearchBar getCandyMachineData={getCandyMachineData} />
       {candyMachineStats.items === 0 || (
+        // show mint price, publish date, mint stats and creator ids
         <MintInfo candyMachineStats={candyMachineStats} />
       )}
       {mintAddresses[0] === "" || (
