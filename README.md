@@ -30,3 +30,5 @@ Results will show stats about the Candy Machine, and list the NFTs below.
 - Impliment React Query to take advantage of cache and pre-fetching of NFTs
 - Expand unit tests to cover edge cases and testing pagination
 - Test application on mainnet-beta
+
+Credit : [Solana Cookbook](https://solanacookbook.com/references/nfts.html#how-to-create-an-nft)
