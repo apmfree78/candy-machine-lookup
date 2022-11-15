@@ -9,6 +9,7 @@ Note: **Current set to work on Solana devnet**
 You can use these valid Candy Machine IDs to test out the app:
 
 6HzfKuyBExGqE6kGjSj8UyY4REwGRm1RgHwAsK5ws6Up
+
 4EYvnxkcBCySX2Da39TL8zDMjeWRd2PYPoDyyn4XHaU2
 
 Results will show stats about the Candy Machine, and list the NFTs below.
